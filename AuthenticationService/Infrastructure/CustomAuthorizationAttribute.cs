@@ -10,6 +10,8 @@ namespace AuthenticationService.Infrastructure
         
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            if (string.IsNullOrEmpty(AllowedRole)) return;
+
             if(context.HttpContext.Items.TryGetValue("Role", out var role) && 
                role is string userRole && 
                userRole.Equals(AllowedRole, StringComparison.OrdinalIgnoreCase))

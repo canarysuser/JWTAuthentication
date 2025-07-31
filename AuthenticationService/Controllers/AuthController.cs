@@ -45,5 +45,14 @@ namespace AuthenticationService.Controllers
             };
             return Ok(response);
         }
+        
+        [HttpGet("validate")]
+        public IActionResult ValidateToken()
+        {
+            if (HttpContext.Items["UserId"] !=null)
+                return Ok(new {status=true, message="Authenticated"});
+            else 
+                return Unauthorized(new { status = false, message = "Unauthorized" });
+        }
     }
 }
